@@ -1,5 +1,6 @@
 package com.procesos.inventario.service;
 
+import com.procesos.inventario.exceptions.NotFoundException;
 import com.procesos.inventario.model.Address;
 import com.procesos.inventario.model.User;
 import com.procesos.inventario.repository.AddressRepository;
@@ -18,17 +19,17 @@ public class AddressService {
 
     public Address createAddress(Address address, Long idUser){
         User user = userService.getUserById(idUser);
-        if (user == null){
-            throw new RuntimeException("User not found");
-        }
         address.setUser(user);
         return addressRepository.save(address);
     }
 
-    public Address disableAddress(Long id){
+    public Address disableAddress(Long id) {
+        if (id == null || id == 0){
+            throw new NotFoundException("Address not found");
+        }
         Optional<Address> address = addressRepository.findById(id);
-        if (address.isEmpty()){
-            throw  new RuntimeException("Address not found");
+        if (address.isEmpty()) {
+            throw new NotFoundException("Address not found");
         }
         address.get().setStatus(Boolean.FALSE);
         return addressRepository.save(address.get());
@@ -37,7 +38,7 @@ public class AddressService {
     public Address getAddressById(Long id){
         Optional<Address> address = addressRepository.findById(id);
         if (address.isEmpty()){
-            throw  new RuntimeException("Address not found");
+            throw new RuntimeException("Address not found");
         }
         return address.get();
     }
