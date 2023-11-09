@@ -20,7 +20,7 @@ public class AddressController {
 
     @PostMapping("address/{idUser}")
     public ResponseEntity create(@Valid @RequestBody Address address, @PathVariable Long idUser){
-        return new ResponseEntity(addressService.createAddress(address, idUser), HttpStatus.CREATED);
+        return new ResponseEntity<>(addressService.createAddress(address, idUser), HttpStatus.CREATED);
     }
 
     @PutMapping("address/{id}")

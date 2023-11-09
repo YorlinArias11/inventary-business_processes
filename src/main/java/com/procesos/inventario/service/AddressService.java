@@ -24,7 +24,7 @@ public class AddressService {
     }
 
     public Address disableAddress(Long id) {
-        if (id == null || id == 0){
+        if (id == 0){
             throw new NotFoundException("Address not found");
         }
         Optional<Address> address = addressRepository.findById(id);

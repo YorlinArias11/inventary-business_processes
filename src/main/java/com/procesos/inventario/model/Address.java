@@ -9,7 +9,8 @@ import lombok.Data;
 @Entity
 @Data
 public class Address {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull(message = "street address is required")
     @Size(max = 100, message = "Street address max 100 characters")
